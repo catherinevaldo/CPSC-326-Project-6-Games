@@ -1,3 +1,4 @@
+# 04-08-19 progress on checkers
 # Elizabeth Larson
 # Code from the internet
   
