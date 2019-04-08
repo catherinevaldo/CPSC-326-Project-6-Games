@@ -1,6 +1,7 @@
 # 04-08-19 progress on 8-ball
 # Elizabeth Larson
-# Rough draft...some sort of visual component (actual ball?), needs user input, maybe fix efficiency of shakeBall
+# Rough draft...some sort of visual component (actual ball?), needs user input, maybe fix efficiency of shakeBall,
+#               fixing add_button and add_frame so it's not plagerized
 
 # 8ball game
 
