@@ -1,13 +1,9 @@
-# 04-08-19 progress on 8-ball
-# Elizabeth Larson
-# Rough draft...some sort of visual component (actual ball?), needs user input, maybe fix efficiency of shakeBall,
-#               fixing add_button and add_frame so it's not plagerized
-
 # 8ball game
 
 destroy  .buttons
 toplevel .buttons
 wm title .buttons "8-ball game"
+set count 0
 
 proc add_frame title {
   global frame count
@@ -56,6 +52,5 @@ proc shakeBall {} {
   if {$randomNumber == 20} { add_frame "Very doubtful." }
 }
 
-add_frame "What's your question?"
-add_frame ""
+add_frame  "What's your question?"
 add_button "Shake the 8-ball"     { shakeBall }
