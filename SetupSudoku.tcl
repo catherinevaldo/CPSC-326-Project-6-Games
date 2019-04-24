@@ -8,26 +8,32 @@ frame .board -padx 5 -pady 5
 pack .board -fill both -expand 1
 
 #configure columns 0-8
-grid columnconfigure . 0 -weight 0 -pad 1
-grid columnconfigure . 1 -weight 0 -pad 1
-grid columnconfigure . 2 -weight 0 -pad 1
-grid columnconfigure . 3 -weight 0 -pad 1
-grid columnconfigure . 4 -weight 0 -pad 1
-grid columnconfigure . 5 -weight 0 -pad 1
-grid columnconfigure . 6 -weight 0 -pad 1
-grid columnconfigure . 7 -weight 0 -pad 1
-grid columnconfigure . 8 -weight 0 -pad 1
+foreach col { 0 1 2 3 4 5 6 7 8 }{
+    grid columnconfigure . $col -weight 0 -pad 3
+}
+# grid columnconfigure . 0 -weight 0 -pad 3
+# grid columnconfigure . 1 -weight 0 -pad 3
+# grid columnconfigure . 2 -weight 0 -pad 3
+# grid columnconfigure . 3 -weight 0 -pad 3
+# grid columnconfigure . 4 -weight 0 -pad 3
+# grid columnconfigure . 5 -weight 0 -pad 3
+# grid columnconfigure . 6 -weight 0 -pad 3
+# grid columnconfigure . 7 -weight 0 -pad 3
+# grid columnconfigure . 8 -weight 0 -pad 3
 
 #configure rows 0-8
-grid rowconfigure . 1 -weight 0 -pad 1
-grid rowconfigure . 2 -weight 0 -pad 1
-grid rowconfigure . 3 -weight 0 -pad 1
-grid rowconfigure . 4 -weight 0 -pad 1
-grid rowconfigure . 5 -weight 0 -pad 1
-grid rowconfigure . 6 -weight 0 -pad 1
-grid rowconfigure . 7 -weight 0 -pad 1
-grid rowconfigure . 8 -weight 0 -pad 1
-grid rowconfigure . 9 -weight 0 -pad 1
+foreach row { 1 2 3 4 5 6 7 8 9 }{
+    grid columnconfigure . $row -weight 0 -pad 3
+}
+# grid rowconfigure . 1 -weight 0 -pad 3
+# grid rowconfigure . 2 -weight 0 -pad 3
+# grid rowconfigure . 3 -weight 0 -pad 3
+# grid rowconfigure . 4 -weight 0 -pad 3
+# grid rowconfigure . 5 -weight 0 -pad 3
+# grid rowconfigure . 6 -weight 0 -pad 3
+# grid rowconfigure . 7 -weight 0 -pad 3
+# grid rowconfigure . 8 -weight 0 -pad 3
+# grid rowconfigure . 9 -weight 0 -pad 3
 
 #Row 1
 set gr1c0 [ entry .board.r1c0 -textvariable r1c0  -width 3 -state normal ]
@@ -41,10 +47,10 @@ set gr1c7 [ entry .board.r1c7 -textvariable r1c7  -width 3 -state normal ]
 set gr1c8 [ entry .board.r1c8 -textvariable r1c8  -width 3 -state normal ]
 grid $gr1c0 -column 0 -row 1
 grid $gr1c1 -column 1 -row 1
-grid $gr1c2 -column 2 -row 1
+grid $gr1c2 -column 2 -row 1 -padx [ list 0 7]
 grid $gr1c3 -column 3 -row 1
 grid $gr1c4 -column 4 -row 1
-grid $gr1c5 -column 5 -row 1
+grid $gr1c5 -column 5 -row 1 -padx [ list 0 7]
 grid $gr1c6 -column 6 -row 1
 grid $gr1c7 -column 7 -row 1
 grid $gr1c8 -column 8 -row 1
@@ -61,10 +67,10 @@ set gr2c7 [ entry .board.r2c7 -textvariable r2c7  -width 3 -state normal ]
 set gr2c8 [ entry .board.r2c8 -textvariable r2c8  -width 3 -state normal ]
 grid $gr2c0 -column 0 -row 2
 grid $gr2c1 -column 1 -row 2
-grid $gr2c2 -column 2 -row 2
+grid $gr2c2 -column 2 -row 2 -padx [ list 0 7]
 grid $gr2c3 -column 3 -row 2
 grid $gr2c4 -column 4 -row 2
-grid $gr2c5 -column 5 -row 2
+grid $gr2c5 -column 5 -row 2 -padx [ list 0 7]
 grid $gr2c6 -column 6 -row 2
 grid $gr2c7 -column 7 -row 2
 grid $gr2c8 -column 8 -row 2
@@ -79,15 +85,15 @@ set gr3c5 [ entry .board.r3c5 -textvariable r3c5  -width 3 -state normal ]
 set gr3c6 [ entry .board.r3c6 -textvariable r3c6  -width 3 -state normal ]
 set gr3c7 [ entry .board.r3c7 -textvariable r3c7  -width 3 -state normal ]
 set gr3c8 [ entry .board.r3c8 -textvariable r3c8  -width 3 -state normal ]
-grid $gr3c0 -column 0 -row 3
-grid $gr3c1 -column 1 -row 3
-grid $gr3c2 -column 2 -row 3
-grid $gr3c3 -column 3 -row 3
-grid $gr3c4 -column 4 -row 3
-grid $gr3c5 -column 5 -row 3
-grid $gr3c6 -column 6 -row 3
-grid $gr3c7 -column 7 -row 3
-grid $gr3c8 -column 8 -row 3
+grid $gr3c0 -column 0 -row 3 -pady [ list 0 7]
+grid $gr3c1 -column 1 -row 3 -pady [ list 0 7]
+grid $gr3c2 -column 2 -row 3 -pady [ list 0 7] -padx [ list 0 7]
+grid $gr3c3 -column 3 -row 3 -pady [ list 0 7]
+grid $gr3c4 -column 4 -row 3 -pady [ list 0 7]
+grid $gr3c5 -column 5 -row 3 -pady [ list 0 7] -padx [ list 0 7]
+grid $gr3c6 -column 6 -row 3 -pady [ list 0 7]
+grid $gr3c7 -column 7 -row 3 -pady [ list 0 7]
+grid $gr3c8 -column 8 -row 3 -pady [ list 0 7]
 
 #Row 4
 set gr4c0 [ entry .board.r4c0 -textvariable r4c0  -width 3 -state normal ]
@@ -101,10 +107,10 @@ set gr4c7 [ entry .board.r4c7 -textvariable r4c7  -width 3 -state normal ]
 set gr4c8 [ entry .board.r4c8 -textvariable r4c8  -width 3 -state normal ]
 grid $gr4c0 -column 0 -row 4
 grid $gr4c1 -column 1 -row 4
-grid $gr4c2 -column 2 -row 4
+grid $gr4c2 -column 2 -row 4 -padx [ list 0 7]
 grid $gr4c3 -column 3 -row 4
 grid $gr4c4 -column 4 -row 4
-grid $gr4c5 -column 5 -row 4
+grid $gr4c5 -column 5 -row 4 -padx [ list 0 7]
 grid $gr4c6 -column 6 -row 4
 grid $gr4c7 -column 7 -row 4
 grid $gr4c8 -column 8 -row 4
@@ -121,10 +127,10 @@ set gr5c7 [ entry .board.r5c7 -textvariable r5c7  -width 3 -state normal ]
 set gr5c8 [ entry .board.r5c8 -textvariable r5c8  -width 3 -state normal ]
 grid $gr5c0 -column 0 -row 5
 grid $gr5c1 -column 1 -row 5
-grid $gr5c2 -column 2 -row 5
+grid $gr5c2 -column 2 -row 5 -padx [ list 0 7]
 grid $gr5c3 -column 3 -row 5
 grid $gr5c4 -column 4 -row 5
-grid $gr5c5 -column 5 -row 5
+grid $gr5c5 -column 5 -row 5 -padx [ list 0 7]
 grid $gr5c6 -column 6 -row 5
 grid $gr5c7 -column 7 -row 5
 grid $gr5c8 -column 8 -row 5
@@ -139,15 +145,15 @@ set gr6c5 [ entry .board.r6c5 -textvariable r6c5  -width 3 -state normal ]
 set gr6c6 [ entry .board.r6c6 -textvariable r6c6  -width 3 -state normal ]
 set gr6c7 [ entry .board.r6c7 -textvariable r6c7  -width 3 -state normal ]
 set gr6c8 [ entry .board.r6c8 -textvariable r6c8  -width 3 -state normal ]
-grid $gr6c0 -column 0 -row 6
-grid $gr6c1 -column 1 -row 6
-grid $gr6c2 -column 2 -row 6
-grid $gr6c3 -column 3 -row 6
-grid $gr6c4 -column 4 -row 6
-grid $gr6c5 -column 5 -row 6
-grid $gr6c6 -column 6 -row 6
-grid $gr6c7 -column 7 -row 6
-grid $gr6c8 -column 8 -row 6
+grid $gr6c0 -column 0 -row 6 -pady [ list 0 7]
+grid $gr6c1 -column 1 -row 6 -pady [ list 0 7]
+grid $gr6c2 -column 2 -row 6 -pady [ list 0 7] -padx [ list 0 7]
+grid $gr6c3 -column 3 -row 6 -pady [ list 0 7]
+grid $gr6c4 -column 4 -row 6 -pady [ list 0 7]
+grid $gr6c5 -column 5 -row 6 -pady [ list 0 7] -padx [ list 0 7]
+grid $gr6c6 -column 6 -row 6 -pady [ list 0 7]
+grid $gr6c7 -column 7 -row 6 -pady [ list 0 7]
+grid $gr6c8 -column 8 -row 6 -pady [ list 0 7]
 
 #Row 7
 set gr7c0 [ entry .board.r7c0 -textvariable r7c0  -width 3 -state normal ]
@@ -161,10 +167,10 @@ set gr7c7 [ entry .board.r7c7 -textvariable r7c7  -width 3 -state normal ]
 set gr7c8 [ entry .board.r7c8 -textvariable r7c8  -width 3 -state normal ]
 grid $gr7c0 -column 0 -row 7
 grid $gr7c1 -column 1 -row 7
-grid $gr7c2 -column 2 -row 7
+grid $gr7c2 -column 2 -row 7 -padx [ list 0 7]
 grid $gr7c3 -column 3 -row 7
 grid $gr7c4 -column 4 -row 7
-grid $gr7c5 -column 5 -row 7
+grid $gr7c5 -column 5 -row 7 -padx [ list 0 7]
 grid $gr7c6 -column 6 -row 7
 grid $gr7c7 -column 7 -row 7
 grid $gr7c8 -column 8 -row 7 
@@ -181,10 +187,10 @@ set gr8c7 [ entry .board.r8c7 -textvariable r8c7  -width 3 -state normal ]
 set gr8c8 [ entry .board.r8c8 -textvariable r8c8  -width 3 -state normal ]
 grid $gr8c0 -column 0 -row 8
 grid $gr8c1 -column 1 -row 8
-grid $gr8c2 -column 2 -row 8
+grid $gr8c2 -column 2 -row 8 -padx [ list 0 7]
 grid $gr8c3 -column 3 -row 8
 grid $gr8c4 -column 4 -row 8
-grid $gr8c5 -column 5 -row 8
+grid $gr8c5 -column 5 -row 8 -padx [ list 0 7]
 grid $gr8c6 -column 6 -row 8
 grid $gr8c7 -column 7 -row 8
 grid $gr8c8 -column 8 -row 8
@@ -201,10 +207,10 @@ set gr9c7 [ entry .board.r9c7 -textvariable r9c7  -width 3 -state normal ]
 set gr9c8 [ entry .board.r9c8 -textvariable r9c8  -width 3 -state normal ]
 grid $gr9c0 -column 0 -row 9
 grid $gr9c1 -column 1 -row 9
-grid $gr9c2 -column 2 -row 9
+grid $gr9c2 -column 2 -row 9 -padx [ list 0 7]
 grid $gr9c3 -column 3 -row 9
 grid $gr9c4 -column 4 -row 9
-grid $gr9c5 -column 5 -row 9
+grid $gr9c5 -column 5 -row 9 -padx [ list 0 7]
 grid $gr9c6 -column 6 -row 9
 grid $gr9c7 -column 7 -row 9
 grid $gr9c8 -column 8 -row 9

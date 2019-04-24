@@ -2,80 +2,79 @@
 #Eazy-----------------------------------------------
 proc eazyV1 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
-    set row_1 {7 5 0 0 3 0 0 4 8}
-    set row_2 {0 0 6 9 8 4 3 0 0}
-    set row_3 {0 0 3 0 0 0 8 0 0}
-    set row_4 {9 1 2 0 0 0 6 7 4}
-    set row_5 {0 0 4 0 0 0 5 0 0}
-    set row_6 {0 0 1 6 7 5 2 0 0}
-    set row_7 {6 8 0 0 9 0 0 1 5}
-    set row_8 {0 9 0 0 4 0 0 3 0}
-    set row_9 {0 3 0 0 1 0 0 6 0}
+    set row_1 {10 3 10 10 1 10 10 6 10}
+    set row_2 {7 5 10 10 3 10 10 4 8}
+    set row_3 {10 10 6 9 8 4 3 10 10}
+    set row_4 {10 10 3 10 10 10 8 10 10}
+    set row_5 {9 1 2 10 10 10 6 7 4}
+    set row_6 {10 10 4 10 10 10 5 10 10}
+    set row_7 {10 10 1 6 7 5 2 10 10}
+    set row_8 {6 8 10 10 9 10 10 1 5}
+    set row_9 {10 9 10 10 4 10 10 3 10}
 }
 proc eazyV2 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
-    set row_1 {0 0 0 0 8 4 0 9 0}
-    set row_2 {0 0 6 3 2 0 0 1 0}
-    set row_3 {0 9 7 0 0 0 0 8 0}
-    set row_4 {8 0 0 9 0 3 0 0 2}
-    set row_5 {0 1 0 0 0 0 9 5 0}
-    set row_6 {0 7 0 0 4 5 8 0 0}
-    set row_7 {0 3 0 7 1 0 0 0 0}
-    set row_8 {0 0 8 0 0 0 0 4 0}
-    set row_9 {0 8 0 0 0 0 2 0 0}
+    set row_1 {0 8 0 0 0 0 2 0 0}
+    set row_2 {0 0 0 0 8 4 0 9 0}
+    set row_3 {0 0 6 3 2 0 0 1 0}
+    set row_4 {0 9 7 0 0 0 0 8 0}
+    set row_5 {8 0 0 9 0 3 0 0 2}
+    set row_6 {0 1 0 0 0 0 9 5 0}
+    set row_7 {0 7 0 0 4 5 8 0 0}
+    set row_8 {0 3 0 7 1 0 0 0 0}
+    set row_9 {0 0 8 0 0 0 0 4 0}
 }
 
 #Intermediate-----------------------------------------
 proc intermediateV1 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
-    set row_9 {0 4 0 0 0 2 0 1 9}
-    set row_1 {0 0 0 3 5 1 0 8 6}
-    set row_2 {3 1 0 0 9 4 7 0 0}
-    set row_3 {0 9 4 0 0 0 0 0 7}
-    set row_4 {0 0 0 0 0 0 0 0 0}
-    set row_5 {2 0 0 0 0 0 8 9 0}
-    set row_6 {0 0 9 5 2 0 0 4 1}
-    set row_7 {4 2 0 1 6 9 0 0 0}
-    set row_8 {1 6 0 8 0 0 0 7 0}
+    set row_1 {0 4 0 0 0 2 0 1 9}
+    set row_2 {0 0 0 3 5 1 0 8 6}
+    set row_3 {3 1 0 0 9 4 7 0 0}
+    set row_4 {0 9 4 0 0 0 0 0 7}
+    set row_5 {0 0 0 0 0 0 0 0 0}
+    set row_6 {2 0 0 0 0 0 8 9 0}
+    set row_7 {0 0 9 5 2 0 0 4 1}
+    set row_8 {4 2 0 1 6 9 0 0 0}
+    set row_9 {1 6 0 8 0 0 0 7 0}
 }
 proc intermediateV2 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
-    set row_9 {1 4 0 5 0 6 3 0 0}
-    set row_1 {3 0 0 0 0 0 0 8 0}
-    set row_2 {9 8 2 1 4 3 0 0 0}
-    set row_3 {0 0 0 8 0 0 0 0 9}
-    set row_4 {0 7 6 3 0 0 1 2 0}
-    set row_5 {8 0 0 0 0 1 0 0 0}
-    set row_6 {0 0 0 2 3 7 8 1 5}
-    set row_7 {0 5 0 0 0 0 0 0 6}
-    set row_8 {0 0 8 6 0 5 0 3 4}
+    set row_1 {1 4 0 5 0 6 3 0 0}
+    set row_2 {3 0 0 0 0 0 0 8 0}
+    set row_3 {9 8 2 1 4 3 0 0 0}
+    set row_4 {0 0 0 8 0 0 0 0 9}
+    set row_5 {0 7 6 3 0 0 1 2 0}
+    set row_6 {8 0 0 0 0 1 0 0 0}
+    set row_7 {0 0 0 2 3 7 8 1 5}
+    set row_8 {0 5 0 0 0 0 0 0 6}
+    set row_9 {0 0 8 6 0 5 0 3 4}
 }
 
 #Hard------------------------------------------------
 proc hardV1 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
-    set row_9 {0 8 0 3 0 7 0 9 0}
-    set row_1 {9 0 0 0 6 0 0 0 7}
-    set row_2 {0 0 1 0 0 0 4 0 0}
-    set row_3 {4 0 0 0 0 0 0 0 3}
-    set row_4 {0 9 0 0 1 0 0 2 0}
-    set row_5 {6 0 0 0 0 0 0 0 1}
-    set row_6 {0 0 9 0 0 0 3 0 0}
-    set row_7 {5 0 0 0 2 0 0 0 9}
-    set row_8 {0 4 0 7 0 8 0 1 0}
+    set row_1 {0 8 0 3 0 7 0 9 0}
+    set row_2 {9 0 0 0 6 0 0 0 7}
+    set row_3 {0 0 1 0 0 0 4 0 0}
+    set row_4 {4 0 0 0 0 0 0 0 3}
+    set row_5 {0 9 0 0 1 0 0 2 0}
+    set row_6 {6 0 0 0 0 0 0 0 1}
+    set row_7 {0 0 9 0 0 0 3 0 0}
+    set row_8 {5 0 0 0 2 0 0 0 9}
+    set row_9 {0 4 0 7 0 8 0 1 0}
 }
 proc hardV2 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
-    set row_9 {3 1 0 0 2 9 0 0 0}
-    set row_1 {8 0 6 0 0 7 3 0 4}
-    set row_2 {4 0 0 0 0 0 0 0 0}
-    set row_3 {7 0 0 0 0 5 0 0 0}
-    set row_4 {0 0 0 0 6 0 0 7 9}
-    set row_5 {0 4 8 0 0 0 5 0 0}
-    
-    set row_6 {0 9 7 0 3 0 0 0 8}
-    set row_7 {0 0 3 0 0 2 0 0 7}
-    set row_8 {0 0 0 0 0 0 2 3 0}
+    set row_1 {3 1 0 0 2 9 0 0 0}
+    set row_2 {8 0 6 0 0 7 3 0 4}
+    set row_3 {4 0 0 0 0 0 0 0 0}
+    set row_4 {7 0 0 0 0 5 0 0 0}
+    set row_5 {0 0 0 0 6 0 0 7 9}
+    set row_6 {0 4 8 0 0 0 5 0 0}
+    set row_7 {0 9 7 0 3 0 0 0 8}
+    set row_8 {0 0 3 0 0 2 0 0 7}
+    set row_9 {0 0 0 0 0 0 2 3 0}
 }
 #sets every 
 proc stateNormalAll {} {
