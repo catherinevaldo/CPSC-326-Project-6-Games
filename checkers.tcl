@@ -2,18 +2,81 @@
 # Katie Wraith, Caterina Valdovinos, and Elizabeth Larson
 # Two-player game of checkers
 
+canvas .checkerBoard -background yellow -width 400 -height 450 
+pack .checkerBoard
+
 set xcor 50
 set ycor 50
 set p1score 0
 set p2score 0
-canvas .checkerBoard -background yellow -width 400 -height 450 
-pack .checkerBoard
 
-#copied from internet... fix!
-.checkerBoard bind all <1> {set c(X) [.checkerBoard canvasx %x]; set c(Y) [.checkerBoard canvasy %y]}
-.checkerBoard bind p1Move <B1-Motion> {p1Move %x %y}
-# .checkerBoard bind all <1> {set c(X) [.checkerBoard canvasx %x]; set c(Y) [.checkerBoard canvasy %y]}
-# .checkerBoard bind p2Move <B1-Motion> {p2Move %x %y}
+# Creates 12 white pieces for player one
+set p1piece1 [.checkerBoard create oval 50 50 100 100 -fill white]
+set p1piece2 [.checkerBoard create oval 150 50 200 100 -fill white]
+set p1piece3 [.checkerBoard create oval 250 50 300 100 -fill white]
+set p1piece4 [.checkerBoard create oval 350 50 400 100 -fill white]
+set p1piece5 [.checkerBoard create oval 0 100 50 150 -fill white]
+set p1piece6 [.checkerBoard create oval 100 100 150 150 -fill white]
+set p1piece7 [.checkerBoard create oval 200 100 250 150 -fill white]
+set p1piece8 [.checkerBoard create oval 300 100 350 150 -fill white]
+set p1piece9 [.checkerBoard create oval 50 150 100 200 -fill white]
+set p1piece10 [.checkerBoard create oval 150 150 200 200 -fill white]
+set p1piece11 [.checkerBoard create oval 250 150 300 200 -fill white]
+set p1piece12 [.checkerBoard create oval 350 150 400 200 -fill white]
+
+# Creates 12 red pieces for player two
+set p2piece1 [.checkerBoard create oval 0 300 50 350 -fill #D22F32]
+set p2piece2 [.checkerBoard create oval 100 300 150 350 -fill #D22F32]
+set p2piece3 [.checkerBoard create oval 200 300 250 350 -fill #D22F32]
+set p2piece4 [.checkerBoard create oval 300 300 350 350 -fill #D22F32]
+set p2piece5 [.checkerBoard create oval 50 350 100 400 -fill #D22F32]
+set p2piece6 [.checkerBoard create oval 150 350 200 400 -fill #D22F32]
+set p2piece7 [.checkerBoard create oval 250 350 300 400 -fill #D22F32]
+set p2piece8 [.checkerBoard create oval 350 350 400 400 -fill #D22F32]
+set p2piece9 [.checkerBoard create oval 0 400 50 450 -fill #D22F32]
+set p2piece10 [.checkerBoard create oval 100 400 150 450 -fill #D22F32]
+set p2piece11 [.checkerBoard create oval 200 400 250 450 -fill #D22F32]
+set p2piece12 [.checkerBoard create oval 300 400 350 450 -fill #D22F32]
+
+# Allows player one to click and drag their pieces around the board
+proc p1Turn {} {
+  global p1piece1 p1piece2 p1piece3 p1piece4
+  global p1piece5 p1piece6 p1piece7 p1piece8
+  global p1piece9 p1piece10 p1piece11 p1piece12
+  
+  .checkerBoard bind $p1piece1 <B1-Motion>  {movePiece $p1piece1 %x %y}
+  .checkerBoard bind $p1piece2 <B1-Motion>  {movePiece $p1piece2 %x %y}
+  .checkerBoard bind $p1piece3 <B1-Motion>  {movePiece $p1piece3 %x %y}
+  .checkerBoard bind $p1piece4 <B1-Motion>  {movePiece $p1piece4 %x %y}
+  .checkerBoard bind $p1piece5 <B1-Motion>  {movePiece $p1piece5 %x %y}
+  .checkerBoard bind $p1piece6 <B1-Motion>  {movePiece $p1piece6 %x %y}
+  .checkerBoard bind $p1piece7 <B1-Motion>  {movePiece $p1piece7 %x %y}
+  .checkerBoard bind $p1piece8 <B1-Motion>  {movePiece $p1piece8 %x %y}
+  .checkerBoard bind $p1piece9 <B1-Motion>  {movePiece $p1piece9 %x %y}
+  .checkerBoard bind $p1piece10 <B1-Motion>  {movePiece $p1piece10 %x %y}
+  .checkerBoard bind $p1piece11 <B1-Motion>  {movePiece $p1piece11 %x %y}
+  .checkerBoard bind $p1piece12 <B1-Motion>  {movePiece $p1piece12 %x %y}
+}
+
+# Allows player two to click and drag their pieces around the board
+proc p2Turn {} {
+  global p2piece1 p2piece2 p2piece3 p2piece4
+  global p2piece5 p2piece6 p2piece7 p2piece8
+  global p2piece9 p2piece10 p2piece11 p2piece12
+  
+  .checkerBoard bind $p2piece1 <B1-Motion>  {movePiece $p2piece1 %x %y}
+  .checkerBoard bind $p2piece2 <B1-Motion>  {movePiece $p2piece2 %x %y}
+  .checkerBoard bind $p2piece3 <B1-Motion>  {movePiece $p2piece3 %x %y}
+  .checkerBoard bind $p2piece4 <B1-Motion>  {movePiece $p2piece4 %x %y}
+  .checkerBoard bind $p2piece5 <B1-Motion>  {movePiece $p2piece5 %x %y}
+  .checkerBoard bind $p2piece6 <B1-Motion>  {movePiece $p2piece6 %x %y}
+  .checkerBoard bind $p2piece7 <B1-Motion>  {movePiece $p2piece7 %x %y}
+  .checkerBoard bind $p2piece8 <B1-Motion>  {movePiece $p2piece8 %x %y}
+  .checkerBoard bind $p2piece9 <B1-Motion>  {movePiece $p2piece9 %x %y}
+  .checkerBoard bind $p2piece10 <B1-Motion>  {movePiece $p2piece10 %x %y}
+  .checkerBoard bind $p2piece11 <B1-Motion>  {movePiece $p2piece11 %x %y}
+  .checkerBoard bind $p2piece12 <B1-Motion>  {movePiece $p2piece12 %x %y}
+}
 
 # Creates the light brown squares found on a checker board
 proc makeLightSquare {x y} {
@@ -25,18 +88,6 @@ proc makeLightSquare {x y} {
 proc makeDarkSquare {x y} {
   global xcor ycor
   .checkerBoard create rectangle $x $y [expr {$x + $xcor}] [expr {$y + $ycor}] -fill #655B4C
-}
-
-# Creates a white piece for player one
-proc makeP1Piece {x y player} {
-  global xcor ycor
-  .checkerBoard create oval [expr {$x + 2}] [expr {$y + 2}] [expr {$x + $xcor - 3}] [expr {$y + $ycor - 3}] -fill white -tags [concat $player p1Move]
-}
-
-# Creates a red piece for player two
-proc makeP2Piece {x y} {
-  global xcor ycor
-  .checkerBoard create oval [expr {$x + 2}] [expr {$y + 2}] [expr {$x + $xcor - 3}] [expr {$y + $ycor - 3}] -fill #D22F32
 }
   
 # Initalizes the score board
@@ -85,110 +136,76 @@ proc setUpBoard {} {
         if {$i % 2 == 1 && $j % 2 == 1} {
           makeDarkSquare $x $y
         }
-	   
-        # Arrange the pieces for both players
-        if {$i % 2 == 1 && $j % 2 == 1} {
-          if {$i < 4} {
-            makeP1Piece $x $y player1
-          }
-          if {$i >= 6} {
-            makeP2Piece $x $y
-          }
-        }
-        if {$i % 2 == 0 && $j % 2 == 0} {
-          if {$i < 3} {
-            makeP1Piece $x $y player1
-          }
-          if {$i >= 5} {
-            makeP2Piece $x $y
-          }
-        }
       }
+	  # Arrange the pieces for both players
+	  placePiecesOnBoard
     }
   }
 }
 
-#copied from internet... fix!
-proc p1Move {x y} {
-  global c
-  set x  [.checkerBoard canvasx $x]
-  set y  [.checkerBoard canvasy $y]
-  set id [.checkerBoard find withtag current]
-  .checkerBoard move $id [expr {$x-$c(X)}] [expr {$y-$c(Y)}]
-  .checkerBoard raise $id
-  set c(X) $x; set c(Y) $y
+# Changes the coordinates of the pieces based on the user's click and drag
+proc movePiece {object x y} {
+  .checkerBoard coords $object [expr $x-25] [expr $y-25] [expr $x+25] [expr $y+25]
 }
 
-# #copied from internet... fix!
-# proc p2Move {x y} {
-  # global c
-  # set x  [.checkerBoard canvasx $x]
-  # set y  [.checkerBoard canvasy $y]
-  # set id [.checkerBoard find withtag current]
-  # .checkerBoard move $id [expr {$x - $c(X)}] [expr {$y - $c(Y)}]
-  # .checkerBoard raise $id
-  # set c(X) $x; set c(Y) $y
-# }
-
-# proc p1CheckMate {} {
-# }
-
-# proc p2CheckMate {} {
-# }
-
-# proc hasBeenJumped {} {
-  # if {} {
-    # updateScoreBoard {1}
-	# pieceDisappear 
-  # }
-  # if {} {
-    # updateScoreBoard {2}
-	# pieceDisappear
-  # }
-# }
-
-# proc pieceDisappear {} {
-  # global xcor ycor
-  # .checkerBoard create oval [expr {$x + 2}] [expr {$y + 2}] [expr {$x + $xcor - 3}] [expr {$y + $ycor-3}] -fill #655B4C -tags [concat $args p1Move]
-# }
+# Brings the pieces into the foreground for the players to see
+proc placePiecesOnBoard {} {
+  global p1piece1 p1piece2 p1piece3 p1piece4
+  global p1piece5 p1piece6 p1piece7 p1piece8
+  global p1piece9 p1piece10 p1piece11 p1piece12
+  
+  global p2piece1 p2piece2 p2piece3 p2piece4
+  global p2piece5 p2piece6 p2piece7 p2piece8
+  global p2piece9 p2piece10 p2piece11 p2piece12
+  
+  .checkerBoard raise $p1piece1
+  .checkerBoard raise $p1piece2
+  .checkerBoard raise $p1piece3
+  .checkerBoard raise $p1piece4
+  .checkerBoard raise $p1piece5
+  .checkerBoard raise $p1piece6
+  .checkerBoard raise $p1piece7
+  .checkerBoard raise $p1piece8
+  .checkerBoard raise $p1piece9
+  .checkerBoard raise $p1piece10
+  .checkerBoard raise $p1piece11
+  .checkerBoard raise $p1piece12
+  
+  .checkerBoard raise $p2piece1
+  .checkerBoard raise $p2piece2
+  .checkerBoard raise $p2piece3
+  .checkerBoard raise $p2piece4
+  .checkerBoard raise $p2piece5
+  .checkerBoard raise $p2piece6
+  .checkerBoard raise $p2piece7
+  .checkerBoard raise $p2piece8
+  .checkerBoard raise $p2piece9
+  .checkerBoard raise $p2piece10
+  .checkerBoard raise $p2piece11
+  .checkerBoard raise $p2piece12
+}
 
 proc playGame {} {
   global p1score p2score
-
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-  # updateScoreBoard {1}
-
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
-  # updateScoreBoard {2}
   
-  winnerScreen
   # while {$p1score < 12 || $p2score < 12} {
-    # p1Move
-	# hasBeenJumped
-	# p2Move
-	# hasBeenJumped
+  p1Turn
+  p2Turn
   # }
+  
+  # winnerScreen
+}
 
+# Gets rid of the "jumped" piece + gives a point to the "jumpee"
+proc hasBeenJumped {winner piece} {
+  if {winner == 1} {
+    updateScoreBoard {1}
+	# .checkerBoard delete $piece 
+  }
+  if {winner == 2} {
+    updateScoreBoard {2}
+	# .checkerBoard delete $piece
+  }
 }
 
 # After all of the pieces for one player have been jumped, a winner is declared
