@@ -1,9 +1,17 @@
 # checkers.tcl
 # Katie Wraith, Caterina Valdovinos, and Elizabeth Larson
 # Two-player game of checkers
+# Accounts for major rules of checkers:
+#    - when a player's piece diagonally crosses over the other player's,
+#      they capture the second player's piece
+#    - if a player reaches the other end of the board, that piece is
+#      declared king and can now diagonally capture their opponent's piece
+#      from any direction
+#    - first player to get 12 points (capture all 12 of their opponent's
+#      pieces) wins the game
 
 
-grid [ button .turnStatus -text "Done" -command done ] -column 4 -row 1 -sticky w -columnspan 2
+grid [ button .turnStatus -text "Done" -command checkRules ] -column 4 -row 1 -sticky w -columnspan 2
 pack .turnStatus -fill both -expand 1
 
 canvas .checkerBoard -background yellow -width 400 -height 450 
@@ -14,7 +22,6 @@ set ycor 50
 set p1score 0
 set p2score 0
 
-# Creates 12 white pieces for player one
 set p1piece1 [.checkerBoard create oval 50 50 100 100 -fill white] 
 set p1piece2 [.checkerBoard create oval 150 50 200 100 -fill white]
 set p1piece3 [.checkerBoard create oval 250 50 300 100 -fill white]
@@ -41,6 +48,9 @@ set p2piece9 [.checkerBoard create oval 0 400 50 450 -fill #D22F32]
 set p2piece10 [.checkerBoard create oval 100 400 150 450 -fill #D22F32]
 set p2piece11 [.checkerBoard create oval 200 400 250 450 -fill #D22F32]
 set p2piece12 [.checkerBoard create oval 300 400 350 450 -fill #D22F32]
+
+# Will be updated as the players move their pieces
+set movedPiece 2
 
 # Creates the light brown squares found on a checker board
 proc makeLightSquare {x y} {
@@ -86,7 +96,7 @@ proc setUpBoard {} {
   setupScoreBoard
   for {set i 0; set y 0} {$i < 9} {incr i; incr y $ycor} {
     for {set j 0; set x 0} {$j < 8} {incr j; incr x $xcor} {
-      # Puts a red square down every other square
+      # Staggers the two colored squares (every other square)
       if {$i > 0} {
         if {$i % 2 == 1 && $j % 2 == 0} {
           makeLightSquare $x $y
@@ -109,7 +119,16 @@ proc setUpBoard {} {
 
 # Changes the coordinates of the pieces based on the user's click and drag
 proc movePiece {object x y} {
+  global movedPiece
+  global p1piece1 p1piece2 p1piece3 p1piece4
+  global p1piece5 p1piece6 p1piece7 p1piece8
+  global p1piece9 p1piece10 p1piece11 p1piece12
+  global p2piece1 p2piece2 p2piece3 p2piece4
+  global p2piece5 p2piece6 p2piece7 p2piece8
+  global p2piece9 p2piece10 p2piece11 p2piece12
+  
   .checkerBoard coords $object [expr $x-25] [expr $y-25] [expr $x+25] [expr $y+25]
+  set movedPiece $object
 }
 
 # Brings the pieces into the foreground for the players to see
@@ -151,38 +170,38 @@ proc placePiecesOnBoard {} {
 proc playGame {} {
   global p1score p2score
   
-  # while {$p1score < 12 || $p2score < 12} {
-  p1Turn
-  p2Turn
-  # }
-  # winnerScreen
+  if {$p1score < 12 && $p2score < 12} {
+    move
+  } else {
+    winnerScreen
+  }
 }
 
 # Gets rid of the "jumped" piece + gives a point to the "jumpee"
-# proc hasBeenJumped {winner piece} {
-proc hasBeenJumped {winner} {
+# Throws error messages to prevent Tcl/Tk from throwing
+#        real messages about the piece disappearing
+proc hasBeenJumped {winner piece} {  
+  if {$winner == 1} {
+    updateScoreBoard {1}
+	.checkerBoard delete $piece
+	error "Nice move, Player 1!"
+  }
+  if {$winner == 2} {
+    updateScoreBoard {2}
+	.checkerBoard delete $piece
+	error "Nice move, Player 2!"
+  }
+}
+
+# Allows player one and player two to click and drag their pieces around the board
+proc move {} {
+  global movedPiece
   global p1piece1 p1piece2 p1piece3 p1piece4
   global p1piece5 p1piece6 p1piece7 p1piece8
   global p1piece9 p1piece10 p1piece11 p1piece12
   global p2piece1 p2piece2 p2piece3 p2piece4
   global p2piece5 p2piece6 p2piece7 p2piece8
   global p2piece9 p2piece10 p2piece11 p2piece12
-  
-  if {$winner == 1} {
-    updateScoreBoard {1}
-	# .checkerBoard delete $p2piece1
-  }
-  if {$winner == 2} {
-    updateScoreBoard {2}
-	# .checkerBoard delete $p1piece1
-  }
-}
-
-# Allows player one to click and drag their pieces around the board
-proc p1Turn {} {
-  global p1piece1 p1piece2 p1piece3 p1piece4
-  global p1piece5 p1piece6 p1piece7 p1piece8
-  global p1piece9 p1piece10 p1piece11 p1piece12
   
   .checkerBoard bind $p1piece1 <B1-Motion>  {movePiece $p1piece1 %x %y}
   .checkerBoard bind $p1piece2 <B1-Motion>  {movePiece $p1piece2 %x %y}
@@ -196,23 +215,6 @@ proc p1Turn {} {
   .checkerBoard bind $p1piece10 <B1-Motion>  {movePiece $p1piece10 %x %y}
   .checkerBoard bind $p1piece11 <B1-Motion>  {movePiece $p1piece11 %x %y}
   .checkerBoard bind $p1piece12 <B1-Motion>  {movePiece $p1piece12 %x %y}
-}
-
-proc done {} {
-  global p1piece1
-  # set center [lindex [.checkerBoard coords $p1piece1] 3]
-  # if {($center - 25) >= 400} {
-    # hasBeenJumped {1}
-  # }
-  # p1CheckMate
-  # p2CheckMate
-}
-
-# Allows player two to click and drag their pieces around the board
-proc p2Turn {} {
-  global p2piece1 p2piece2 p2piece3 p2piece4
-  global p2piece5 p2piece6 p2piece7 p2piece8
-  global p2piece9 p2piece10 p2piece11 p2piece12
   
   .checkerBoard bind $p2piece1 <B1-Motion>  {movePiece $p2piece1 %x %y}
   .checkerBoard bind $p2piece2 <B1-Motion>  {movePiece $p2piece2 %x %y}
@@ -228,39 +230,111 @@ proc p2Turn {} {
   .checkerBoard bind $p2piece12 <B1-Motion>  {movePiece $p2piece12 %x %y}
 }
 
-# proc p1CheckMate {piece} {
-  # set center [lindex [.checkerBoard coords $piece] 3]
-  # if {($center - 25) >= 400} {
-      # .checkerBoard create oval $x $y  [expr {$x + $xcor - 3}] [expr {$y + $ycor - 3}] -fill white -highlightcolor yellow
-  # }
-# }
+# Uses the lowest y coordinate to figure out the center of the piece
+#      lowest y coor - radius (which is 25 for all pieces) = center
+proc findCenter {piece} {
+  set center [lindex [.checkerBoard coords $piece] 3]
+  set center [expr {$center - 25}]
+}
 
-# proc p2CheckMate {piece} {
-  # set center [lindex [.checkerBoard coords $piece] 3]
-  # if {($center - 25) <= 50} {
-      # .checkerBoard create oval $x $y  [expr {$x + $xcor - 3}] [expr {$y + $ycor - 3}] -fill #D22F32 -highlightcolor yellow
-  # }
-# }
+# Checks if the player has jumped the other player or reached the other end of the board (king)
+proc checkRules {} {
+  global movedPiece
+  global p1piece1 p1piece2 p1piece3 p1piece4
+  global p1piece5 p1piece6 p1piece7 p1piece8
+  global p1piece9 p1piece10 p1piece11 p1piece12
+  global p2piece1 p2piece2 p2piece3 p2piece4
+  global p2piece5 p2piece6 p2piece7 p2piece8
+  global p2piece9 p2piece10 p2piece11 p2piece12
+  set center [findCenter $movedPiece]
+  
+  # Player one pieces are labeled 1-12
+  if {$movedPiece >= 1 && $movedPiece <= 12} {
+    p1KingMe $movedPiece
+	if {$center >= [findCenter $p2piece1]} { hasBeenJumped 1 $p2piece1 }
+    if {$center >= [findCenter $p2piece2]} { hasBeenJumped 1 $p2piece2 }
+    if {$center >= [findCenter $p2piece3]} { hasBeenJumped 1 $p2piece3 }
+    if {$center >= [findCenter $p2piece4]} { hasBeenJumped 1 $p2piece4 }
+    if {$center >= [findCenter $p2piece5]} { hasBeenJumped 1 $p2piece5 }
+    if {$center >= [findCenter $p2piece6]} { hasBeenJumped 1 $p2piece6 }
+    if {$center >= [findCenter $p2piece7]} { hasBeenJumped 1 $p2piece7 }
+    if {$center >= [findCenter $p2piece8]} { hasBeenJumped 1 $p2piece8 }
+    if {$center >= [findCenter $p2piece9]} { hasBeenJumped 1 $p2piece9 }
+    if {$center >= [findCenter $p2piece10]} { hasBeenJumped 1 $p2piece10 }
+    if {$center >= [findCenter $p2piece11]} { hasBeenJumped 1 $p2piece11 }
+    if {$center >= [findCenter $p2piece12]} { hasBeenJumped 1 $p2piece12 }
+  }
+	
+  # Player two pieces are labled 13-24
+  if {$movedPiece >= 13 && $movedPiece <= 24} {
+    p2KingMe $movedPiece
+    if {$center >= [findCenter $p1piece1]} { hasBeenJumped 2 $p1piece1 }
+    if {$center >= [findCenter $p1piece2]} { hasBeenJumped 2 $p1piece2 }
+    if {$center >= [findCenter $p1piece3]} { hasBeenJumped 2 $p1piece3 }
+    if {$center >= [findCenter $p1piece4]} { hasBeenJumped 2 $p1piece4 }
+    if {$center >= [findCenter $p1piece5]} { hasBeenJumped 2 $p1piece5 }
+    if {$center >= [findCenter $p1piece6]} { hasBeenJumped 2 $p1piece6 }
+    if {$center >= [findCenter $p1piece7]} { hasBeenJumped 2 $p1piece7 }
+    if {$center >= [findCenter $p1piece8]} { hasBeenJumped 2 $p1piece8 }
+    if {$center >= [findCenter $p1piece9]} { hasBeenJumped 2 $p1piece9 }
+    if {$center >= [findCenter $p1piece10]} { hasBeenJumped 2 $p1piece10 }
+    if {$center >= [findCenter $p1piece11]} { hasBeenJumped 2 $p1piece11 }
+    if {$center >= [findCenter $p1piece12]} { hasBeenJumped 2 $p1piece12 }
+  }
+  playGame
+}
+
+proc p1KingMe {piece} {
+  global p1score p2score
+  
+  set center [findCenter $piece]
+  if {$center >= 400} {
+    .checkerBoard create rectangle 0 0 450 50 -fill yellow
+    .checkerBoard create text 50 30 -fill black -justify left -text "Player 1: "
+    .checkerBoard create text 100 30 -fill black -justify left -text $p1score
+    .checkerBoard create text 325 30 -fill black -justify right -text "Player 2: "
+    .checkerBoard create text 375 30 -fill black -justify right -text $p2score
+    .checkerBoard create text 200 30 -fill black -justify center -text "<- King me!" -font {Helvetica -20 bold}
+    # King pieces for player 2 turn silver
+    .checkerBoard itemconfigure $piece -fill #9da8b3
+  }
+}
+
+proc p2KingMe {piece} {
+  global p1score p2score
+  global p2piece2
+  set center [findCenter $piece]
+  if {$center <= 100} {
+    .checkerBoard create rectangle 0 0 450 50 -fill yellow
+    .checkerBoard create text 50 30 -fill black -justify left -text "Player 1: "
+    .checkerBoard create text 100 30 -fill black -justify left -text $p1score
+    .checkerBoard create text 325 30 -fill black -justify right -text "Player 2: "
+    .checkerBoard create text 375 30 -fill black -justify right -text $p2score
+    .checkerBoard create text 200 30 -fill black -justify center -text "King me! ->" -font {Helvetica -20 bold}
+    # King pieces for player 2 turn gold
+    .checkerBoard itemconfigure $piece -fill #E5E27E
+  }
+}
 
 # After all of the pieces for one player have been jumped, a winner is declared
 proc winnerScreen {} {
   global p1score p2score
   # Player one won
-  if {$p1score == 12} {
+  if {$p1score >= 12} {
     .checkerBoard create rectangle 0 0 450 50 -fill yellow
-    .checkerBoard create text 50 30 -fill blue -justify left -text "Player 1: "
-    .checkerBoard create text 100 30 -fill blue -justify left -text $p1score
+    .checkerBoard create text 50 30 -fill black -justify left -text "Player 1: "
+    .checkerBoard create text 100 30 -fill black -justify left -text $p1score
     .checkerBoard create text 325 30 -fill black -justify right -text "Player 2: "
     .checkerBoard create text 375 30 -fill black -justify right -text $p2score
     .checkerBoard create text 200 30 -fill black -justify center -text "Player 1 wins!" -font {Helvetica -20 bold}
   }
   # Player two won
-  if {$p2score == 12} {
+  if {$p2score >= 12} {
     .checkerBoard create rectangle 0 0 450 50 -fill yellow
     .checkerBoard create text 50 30 -fill black -justify left -text "Player 1: "
     .checkerBoard create text 100 30 -fill black -justify left -text $p1score
-    .checkerBoard create text 325 30 -fill blue -justify right -text "Player 2: "
-    .checkerBoard create text 375 30 -fill blue -justify right -text $p2score
+    .checkerBoard create text 325 30 -fill black -justify right -text "Player 2: "
+    .checkerBoard create text 375 30 -fill black -justify right -text $p2score
     .checkerBoard create text 200 30 -fill black -justify center -text "Player 2 wins!" -font {Helvetica -20 bold}  }
 }
 
