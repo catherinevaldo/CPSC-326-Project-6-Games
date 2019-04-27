@@ -10,8 +10,7 @@
 #    - first player to get 12 points (capture all 12 of their opponent's
 #      pieces) wins the game
 
-
-grid [ button .turnStatus -text "Done" -command checkRules ] -column 4 -row 1 -sticky w -columnspan 2
+grid [ button .turnStatus -text "Done Moving Piece" -command checkRules ] -column 4 -row 1 -sticky w -columnspan 2
 pack .turnStatus -fill both -expand 1
 
 canvas .checkerBoard -background yellow -width 400 -height 450 
@@ -22,7 +21,7 @@ set ycor 50
 set p1score 0
 set p2score 0
 
-set p1piece1 [.checkerBoard create oval 50 50 100 100 -fill white] 
+set p1piece1 [.checkerBoard create oval 50 50 100 100 -fill white]
 set p1piece2 [.checkerBoard create oval 150 50 200 100 -fill white]
 set p1piece3 [.checkerBoard create oval 250 50 300 100 -fill white]
 set p1piece4 [.checkerBoard create oval 350 50 400 100 -fill white]
@@ -167,6 +166,7 @@ proc placePiecesOnBoard {} {
   .checkerBoard raise $p2piece12
 }
 
+# Checks the score after each player moves a piece
 proc playGame {} {
   global p1score p2score
   
@@ -230,11 +230,27 @@ proc move {} {
   .checkerBoard bind $p2piece12 <B1-Motion>  {movePiece $p2piece12 %x %y}
 }
 
-# Uses the lowest y coordinate to figure out the center of the piece
-#      lowest y coor - radius (which is 25 for all pieces) = center
+# find functions:
+# Looks for the coordiantes of a certain piece + returns the repective spot
 proc findCenter {piece} {
   set center [lindex [.checkerBoard coords $piece] 3]
   set center [expr {$center - 25}]
+  return $center
+}
+
+proc findLeft {piece} {
+  set left [lindex [.checkerBoard coords $piece] 0]
+  return $left
+}
+
+proc findRight {piece} {
+  set right [lindex [.checkerBoard coords $piece] 2]
+  return $right
+}
+
+proc findBottom {piece} {
+  set bottom [lindex [.checkerBoard coords $piece] 3]
+  return $bottom
 }
 
 # Checks if the player has jumped the other player or reached the other end of the board (king)
@@ -246,44 +262,86 @@ proc checkRules {} {
   global p2piece1 p2piece2 p2piece3 p2piece4
   global p2piece5 p2piece6 p2piece7 p2piece8
   global p2piece9 p2piece10 p2piece11 p2piece12
-  set center [findCenter $movedPiece]
   
   # Player one pieces are labeled 1-12
   if {$movedPiece >= 1 && $movedPiece <= 12} {
     p1KingMe $movedPiece
-	if {$center >= [findCenter $p2piece1]} { hasBeenJumped 1 $p2piece1 }
-    if {$center >= [findCenter $p2piece2]} { hasBeenJumped 1 $p2piece2 }
-    if {$center >= [findCenter $p2piece3]} { hasBeenJumped 1 $p2piece3 }
-    if {$center >= [findCenter $p2piece4]} { hasBeenJumped 1 $p2piece4 }
-    if {$center >= [findCenter $p2piece5]} { hasBeenJumped 1 $p2piece5 }
-    if {$center >= [findCenter $p2piece6]} { hasBeenJumped 1 $p2piece6 }
-    if {$center >= [findCenter $p2piece7]} { hasBeenJumped 1 $p2piece7 }
-    if {$center >= [findCenter $p2piece8]} { hasBeenJumped 1 $p2piece8 }
-    if {$center >= [findCenter $p2piece9]} { hasBeenJumped 1 $p2piece9 }
-    if {$center >= [findCenter $p2piece10]} { hasBeenJumped 1 $p2piece10 }
-    if {$center >= [findCenter $p2piece11]} { hasBeenJumped 1 $p2piece11 }
-    if {$center >= [findCenter $p2piece12]} { hasBeenJumped 1 $p2piece12 }
+    validJumpP1 $movedPiece $p2piece1
+    validJumpP1 $movedPiece $p2piece2
+    validJumpP1 $movedPiece $p2piece3
+    validJumpP1 $movedPiece $p2piece4
+    validJumpP1 $movedPiece $p2piece5
+    validJumpP1 $movedPiece $p2piece6
+    validJumpP1 $movedPiece $p2piece7
+    validJumpP1 $movedPiece $p2piece8
+    validJumpP1 $movedPiece $p2piece9
+    validJumpP1 $movedPiece $p2piece10
+    validJumpP1 $movedPiece $p2piece11
+    validJumpP1 $movedPiece $p2piece12
   }
-	
-  # Player two pieces are labled 13-24
+  
+  # Player two pieces are labeled 13-24
   if {$movedPiece >= 13 && $movedPiece <= 24} {
     p2KingMe $movedPiece
-    if {$center >= [findCenter $p1piece1]} { hasBeenJumped 2 $p1piece1 }
-    if {$center >= [findCenter $p1piece2]} { hasBeenJumped 2 $p1piece2 }
-    if {$center >= [findCenter $p1piece3]} { hasBeenJumped 2 $p1piece3 }
-    if {$center >= [findCenter $p1piece4]} { hasBeenJumped 2 $p1piece4 }
-    if {$center >= [findCenter $p1piece5]} { hasBeenJumped 2 $p1piece5 }
-    if {$center >= [findCenter $p1piece6]} { hasBeenJumped 2 $p1piece6 }
-    if {$center >= [findCenter $p1piece7]} { hasBeenJumped 2 $p1piece7 }
-    if {$center >= [findCenter $p1piece8]} { hasBeenJumped 2 $p1piece8 }
-    if {$center >= [findCenter $p1piece9]} { hasBeenJumped 2 $p1piece9 }
-    if {$center >= [findCenter $p1piece10]} { hasBeenJumped 2 $p1piece10 }
-    if {$center >= [findCenter $p1piece11]} { hasBeenJumped 2 $p1piece11 }
-    if {$center >= [findCenter $p1piece12]} { hasBeenJumped 2 $p1piece12 }
+    validJumpP2 $movedPiece $p1piece1
+    validJumpP2 $movedPiece $p1piece2
+    validJumpP2 $movedPiece $p1piece3
+    validJumpP2 $movedPiece $p1piece4
+    validJumpP2 $movedPiece $p1piece5
+    validJumpP2 $movedPiece $p1piece6
+    validJumpP2 $movedPiece $p1piece7
+    validJumpP2 $movedPiece $p1piece8
+    validJumpP2 $movedPiece $p1piece9
+    validJumpP2 $movedPiece $p1piece10
+    validJumpP2 $movedPiece $p1piece11
+    validJumpP2 $movedPiece $p1piece12
   }
   playGame
 }
 
+# If player 1's move resulted in a "jump"
+proc validJumpP1 {jumper jumpee} {
+  set jumperBottom [findBottom $jumper]
+  set jumpeeBottom [findBottom $jumpee]
+  set jumperLeft [findLeft $jumper]
+  set jumpeeLeft [findLeft $jumpee]
+  set jumperRight [findRight $jumper]
+  set jumpeeRight [findRight $jumpee]
+  
+  if {$jumpeeBottom >= 0 && $jumpeeLeft >=0 && $jumpeeRight >= 0} {
+    if {[expr {$jumperBottom - $jumpeeBottom}] >= 0 && [expr {$jumperBottom - $jumpeeBottom}] >= 50} {
+      if {[expr {$jumpeeBottom - $jumperBottom}] >= 0 && [expr {$jumpeeBottom - $jumperBottom}] >= 50} {
+        hasBeenJumped 1 $jumpee
+      }
+      if {[expr {$jumperBottom - $jumpeeBottom}] >= 0 && [expr {$jumperBottom - $jumpeeBottom}] >= 50} {
+        hasBeenJumped 1 $jumpee
+      }
+    }
+  }
+}
+
+# If player 2's move resulted in a "jump"
+proc validJumpP2 {jumper jumpee} {
+  set jumperBottom [findBottom $jumper]
+  set jumpeeBottom [findBottom $jumpee]
+  set jumperLeft [findLeft $jumper]
+  set jumpeeLeft [findLeft $jumpee]
+  set jumperRight [findRight $jumper]
+  set jumpeeRight [findRight $jumpee]
+  
+  if {$jumpeeBottom >= 0 && $jumpeeLeft >=0 && $jumpeeRight >= 0} { 
+    if {[expr {$jumpeeBottom - $jumperBottom}] >= 0 && [expr {$jumpeeBottom - $jumperBottom}] >= 50} {
+      if {[expr {$jumpeeBottom - $jumperBottom}] >= 0 && [expr {$jumpeeBottom - $jumperBottom}] >= 50} {
+        hasBeenJumped 2 $jumpee
+      }
+      if {[expr {$jumperBottom - $jumpeeBottom}] >= 0 && [expr {$jumperBottom - $jumpeeBottom}] >= 50} {
+        hasBeenJumped 2 $jumpee
+      }
+    }
+  }
+}
+
+# Checks if player 1 made it to the other side of the board
 proc p1KingMe {piece} {
   global p1score p2score
   
@@ -300,9 +358,9 @@ proc p1KingMe {piece} {
   }
 }
 
+# Checks if player 2 made it to the other side of the board
 proc p2KingMe {piece} {
   global p1score p2score
-  global p2piece2
   set center [findCenter $piece]
   if {$center <= 100} {
     .checkerBoard create rectangle 0 0 450 50 -fill yellow
