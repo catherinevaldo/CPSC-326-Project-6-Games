@@ -1,6 +1,4 @@
 #!/usr/local/bin/tclsh
-# A Tcl/Tk gadget to construct a window of buttons
-# SD 8 Aug 2003
 
 
 #######################################
