@@ -1,5 +1,4 @@
 # calc - A simple calculator for use as a plug-in demo.
-# Sydney R. Polk, Sun Microsystems
 #
 # The global variable state is used to keep track of what the user has
 # done. It has several fields: Whether or not the last button was a
