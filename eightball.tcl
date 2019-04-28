@@ -11,8 +11,8 @@ pack .eightBall -fill both -expand 1
 proc playGame {} {
   grid [ label .eightBall.welcome -text "Got a question? Ask the magic eight ball!" ]
   grid [ button .eightBall.shakeBall -text "Shake!" -command shakeBall ] -column 4 -row 1 -sticky w -columnspan 2
-  set gr1c0 [ entry .eightBall.r1c0 -textvariable r1c0 -width 30 -state normal ]
-  grid $gr1c0 -column 0 -row 1
+  set question [ entry .eightBall.userInput -textvariable userInput -width 30 -state normal ]
+  grid $question -column 0 -row 1
 }
 
 # Randomly selects one of the 20 answers
