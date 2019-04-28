@@ -7,93 +7,99 @@ pack .board -fill both -expand 1
 set playDisplay "Player 1"
 set turn x
 
+#setup the buttons 
 foreach square { 1 2 3 4 5 6 7 8 9 } {
-    button .board.sq$square -width 6 -height 2 -command [list tttButton $square] 
+    button .board.pos$square -width 6 -height 2 -command [list XObutton $square] 
 }
-grid .board.sq1 .board.sq2 .board.sq3 -padx 1 -pady 1  
-grid .board.sq4 .board.sq5 .board.sq6 -padx 1 -pady 1 
-grid .board.sq7 .board.sq8 .board.sq9 -padx 1 -pady 1 
+grid .board.pos1 .board.pos2 .board.pos3 -padx 1 -pady 1  
+grid .board.pos4 .board.pos5 .board.pos6 -padx 1 -pady 1 
+grid .board.pos7 .board.pos8 .board.pos9 -padx 1 -pady 1 
 
+#setup the columns and rows
 foreach n {0 1 2} {
     grid column .board $n -weight 0 -pad 3
-    grid row    .board $n -weight 0 -pad 3
+    grid row .board $n -weight 0 -pad 3
 }
  
-proc newGame { } {
+# setupGame : configues the board and resets the buttons contents
+proc setupGame { } {
     global board turn
     global playDisplay
-    set playDisplay "Player 1"
+    set playDisplay "X turn"
     set turn x
- 
-    if {[info exists board] } {
-        unset board
-    }
+    .board configure
+    if {[info exists board] } { unset board }
     
-    foreach sq { 1 2 3 4 5 6 7 8 9 } {
-        set w .board.sq$sq
-        # Normally filled with spaces
-        $w configure -fg black -state normal
-        bindtags $w [list $w Button . all]
+    foreach pos { 1 2 3 4 5 6 7 8 9 } {
+        set box .board.pos$pos
+        $box configure -text ""
+        # binds the tags of the buttons to the reset board buttons
+        bindtags $box [list $box Button . all]
     }
 }
  
-proc tttButton { sq } {
+# XObutton : when a button is clicked this changes the turn and places the correct character
+#            in the correlating box
+proc XObutton { pos } {
     global board turn
     global playDisplay
-    set w .board.sq$sq
-    if { [info exists board($sq) ] } {
-        # Error
-        return
-    }
-    set board($sq) $turn
-    array set cols {x blue o black}
-    $w configure -text $turn \
-            -fg $cols($turn) -state normal  
-    bindtags $w [list $w . all]
+    set box .board.pos$pos
+    
+    set board($pos) $turn
+    array set cols {x blue o red}
+    $box configure -text $turn -fg $cols($turn) -state normal  
+    bindtags $box [list $box . all]
     if { $turn == "x" } {
         set turn o
-        set playDisplay "Player 2"
+        set playDisplay "O turn"
     } else {
         set turn x
-        set playDisplay "Player 1" 
+        set playDisplay "X turn" 
     }
- 
     update idletasks
-    if {[checkwin]} {newGame}
+    
+    #if theres a win or draw then notify players and start new game
+    if {[checkwin]} {setupGame} 
 }
- 
+
+# checkwin : 
 proc checkwin {} {
-    set x {}
-    set o {}
-    foreach sq {1 2 3 4 5 6 7 8 9} {
-        if {[info exists ::board($sq)]} {
-            append $::board($sq) $sq
-        }
+    #get the informatin from the board
+    set x {} ;    set o {} ;
+    foreach pos {1 2 3 4 5 6 7 8 9} {
+        if {[info exists ::board($pos)]} { append $::board($pos) $pos }
     }
- 
-    #combinations of squares that would equivalate a win
-    set winCombos { 123* *456* *789 1*4*7* 1*5*9 *2*5*8* *3*6*9 *3*5*7*}
- 
-    foreach pattern $winCombos {
-        if {[string match $pattern $x]} {
-            tk_messageBox -message "X has won"
+    
+    #check for a win by either player
+    set winCombos { *2*5*8* 123* *3*6*9 *456* *789 1*5*9 *3*5*7* 1*4*7*}
+    foreach possibleWin $winCombos {
+        if {[string match $possibleWin $x]} {
+            tk_messageBox -message "WINNER : X\nSorry O"
             return 1
-        } elseif {[string match $pattern $o]} {
-            tk_messageBox -message "O has won"
-            return 2
+        } elseif {[string match $possibleWin $o]} {
+            tk_messageBox -message "WINNER : O\nSorry X"
+            return 1
         }
     }
- 
+    
+    #if all spots are filled then notify players there's a draw
     if {[string length $x$o] == 9} {
         tk_messageBox -message "Draw"
-        return 3
+        return 1
     }
- 
+    
+    #No win or draw
     return 0
 }
 
-button .new  -text "New Game" -command newGame
-button .turn -text $playDisplay
-pack .new .turn -fill x
+#need to confiure additional rows for additional labels and buttons
+grid rowconfigure . 3 -weight 0 -pad 3
+grid rowconfigure . 4 -weight 0 -pad 3
 
-newGame
+#Players turn
+grid [label .board.turn -textvariable playDisplay -background gray80 -font {-size 10}] -row 3
+#Reset button
+grid [button .board.reset -text "Reset" -background gray85 -command setupGame ] -row 4 -pady 2
+
+#Setup the game
+setupGame
