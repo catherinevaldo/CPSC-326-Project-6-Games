@@ -5,22 +5,26 @@
 #    - when a player's piece diagonally crosses over the other player's,
 #      they capture the second player's piece
 #    - if a player reaches the other end of the board, that piece is
-#      declared king and can now diagonally capture their opponent's piece
-#      from any direction
+#      declared king
 #    - first player to get 12 points (capture all 12 of their opponent's
 #      pieces) wins the game
 
+
+# Button each player pushes when they're done moving
+# This triggers a procedure that checks the validity of their move
 grid [ button .turnStatus -text "Done Moving Piece" -command checkRules ] -column 4 -row 1 -sticky w -columnspan 2
 pack .turnStatus -fill both -expand 1
 
 canvas .checkerBoard -background yellow -width 400 -height 450 
 pack .checkerBoard
 
+# Global variables used throughout the program
 set xcor 50
 set ycor 50
 set p1score 0
 set p2score 0
 
+# Creates 12 white pieces for player one
 set p1piece1 [.checkerBoard create oval 50 50 100 100 -fill white]
 set p1piece2 [.checkerBoard create oval 150 50 200 100 -fill white]
 set p1piece3 [.checkerBoard create oval 250 50 300 100 -fill white]
@@ -48,8 +52,33 @@ set p2piece10 [.checkerBoard create oval 100 400 150 450 -fill #D22F32]
 set p2piece11 [.checkerBoard create oval 200 400 250 450 -fill #D22F32]
 set p2piece12 [.checkerBoard create oval 300 400 350 450 -fill #D22F32]
 
+# Stores the name of the moved piece after each turn
+#   (player 1's first piece is the initialized case)
 # Will be updated as the players move their pieces
-set movedPiece 2
+set movedPiece 1
+
+# Helper functions:
+# Looks for the coordiantes of a certain piece + returns the repective spot
+proc findCenter {piece} {
+  set center [lindex [.checkerBoard coords $piece] 3]
+  set center [expr {$center - 25}]
+  return $center
+}
+
+proc findLeft {piece} {
+  set left [lindex [.checkerBoard coords $piece] 0]
+  return $left
+}
+
+proc findRight {piece} {
+  set right [lindex [.checkerBoard coords $piece] 2]
+  return $right
+}
+
+proc findBottom {piece} {
+  set bottom [lindex [.checkerBoard coords $piece] 3]
+  return $bottom
+}
 
 # Creates the light brown squares found on a checker board
 proc makeLightSquare {x y} {
@@ -72,7 +101,7 @@ proc setupScoreBoard {} {
   .checkerBoard create text 375 30 -fill black -justify right -text $p2score
 }
 
-# Updates the score board as piecs are jumped
+# Updates the score board as pieces are jumped
 proc updateScoreBoard {player} {
   global p1score p2score
   if {$player == 1} {
@@ -89,7 +118,8 @@ proc updateScoreBoard {player} {
   .checkerBoard create text 375 30 -fill black -justify right -text $p2score
 }
 
-# Creates the checkerboard pattern of the board + sets up the pieces for both players
+# Creates the checkerboard pattern of the board
+# Sets up the pieces for both players
 proc setUpBoard {} {
   global xcor ycor
   setupScoreBoard
@@ -179,7 +209,7 @@ proc playGame {} {
 
 # Gets rid of the "jumped" piece + gives a point to the "jumpee"
 # Throws error messages to prevent Tcl/Tk from throwing
-#        real messages about the piece disappearing
+#   real messages about the piece disappearing
 proc hasBeenJumped {winner piece} {  
   if {$winner == 1} {
     updateScoreBoard {1}
@@ -230,30 +260,8 @@ proc move {} {
   .checkerBoard bind $p2piece12 <B1-Motion>  {movePiece $p2piece12 %x %y}
 }
 
-# find functions:
-# Looks for the coordiantes of a certain piece + returns the repective spot
-proc findCenter {piece} {
-  set center [lindex [.checkerBoard coords $piece] 3]
-  set center [expr {$center - 25}]
-  return $center
-}
-
-proc findLeft {piece} {
-  set left [lindex [.checkerBoard coords $piece] 0]
-  return $left
-}
-
-proc findRight {piece} {
-  set right [lindex [.checkerBoard coords $piece] 2]
-  return $right
-}
-
-proc findBottom {piece} {
-  set bottom [lindex [.checkerBoard coords $piece] 3]
-  return $bottom
-}
-
-# Checks if the player has jumped the other player or reached the other end of the board (king)
+# Checks if the player has jumped the other player or
+#   reached the other end of the board (king)
 proc checkRules {} {
   global movedPiece
   global p1piece1 p1piece2 p1piece3 p1piece4
@@ -278,6 +286,7 @@ proc checkRules {} {
     validJumpP1 $movedPiece $p2piece10
     validJumpP1 $movedPiece $p2piece11
     validJumpP1 $movedPiece $p2piece12
+	error "Your turn, Player 2"
   }
   
   # Player two pieces are labeled 13-24
@@ -295,6 +304,7 @@ proc checkRules {} {
     validJumpP2 $movedPiece $p1piece10
     validJumpP2 $movedPiece $p1piece11
     validJumpP2 $movedPiece $p1piece12
+	error "Your turn, Player 1"
   }
   playGame
 }
@@ -307,7 +317,8 @@ proc validJumpP1 {jumper jumpee} {
   set jumpeeLeft [findLeft $jumpee]
   set jumperRight [findRight $jumper]
   set jumpeeRight [findRight $jumpee]
-  
+
+  # Player 1's piece is below player 2's piece (left or right side)
   if {$jumpeeBottom >= 0 && $jumpeeLeft >=0 && $jumpeeRight >= 0} {
     if {[expr {$jumperBottom - $jumpeeBottom}] >= 0 && [expr {$jumperBottom - $jumpeeBottom}] >= 50} {
       if {[expr {$jumpeeBottom - $jumperBottom}] >= 0 && [expr {$jumpeeBottom - $jumperBottom}] >= 50} {
@@ -329,6 +340,7 @@ proc validJumpP2 {jumper jumpee} {
   set jumperRight [findRight $jumper]
   set jumpeeRight [findRight $jumpee]
   
+  # Player 2's piece is above player 1's piece (left or right side)
   if {$jumpeeBottom >= 0 && $jumpeeLeft >=0 && $jumpeeRight >= 0} { 
     if {[expr {$jumpeeBottom - $jumperBottom}] >= 0 && [expr {$jumpeeBottom - $jumperBottom}] >= 50} {
       if {[expr {$jumpeeBottom - $jumperBottom}] >= 0 && [expr {$jumpeeBottom - $jumperBottom}] >= 50} {
@@ -344,7 +356,6 @@ proc validJumpP2 {jumper jumpee} {
 # Checks if player 1 made it to the other side of the board
 proc p1KingMe {piece} {
   global p1score p2score
-  
   set center [findCenter $piece]
   if {$center >= 400} {
     .checkerBoard create rectangle 0 0 450 50 -fill yellow
@@ -353,7 +364,7 @@ proc p1KingMe {piece} {
     .checkerBoard create text 325 30 -fill black -justify right -text "Player 2: "
     .checkerBoard create text 375 30 -fill black -justify right -text $p2score
     .checkerBoard create text 200 30 -fill black -justify center -text "<- King me!" -font {Helvetica -20 bold}
-    # King pieces for player 2 turn silver
+    # King pieces for player 1 turn silver
     .checkerBoard itemconfigure $piece -fill #9da8b3
   }
 }
