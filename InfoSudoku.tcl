@@ -1,6 +1,7 @@
 package require Tk
 #Sudoku board Rows
 #Eazy-----------------------------------------------
+#Board
 proc eazyV1 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
     set row_1 {1 0 6 0 0 2 3 0 0}
@@ -13,6 +14,7 @@ proc eazyV1 {} {
     set row_8 {0 0 4 1 5 0 6 0 9}
     set row_9 {9 0 0 8 7 4 2 1 0}
 }
+#Solution
 proc eazyV1Sol {} {
     set crow_1 {1 4 6 7 9 2 3 8 5}
     set crow_2 {2 5 8 3 4 6 7 9 1}
@@ -26,6 +28,7 @@ proc eazyV1Sol {} {
     set correctAns [list $crow_1 $crow_2 $crow_3 $crow_4 $crow_5 $crow_6 $crow_7 $crow_8 $crow_9]
     compareValuesTo $correctAns
 }
+#Board
 proc eazyV2 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
     set row_1 {0 0 0 2 6 0 7 0 1}
@@ -38,6 +41,7 @@ proc eazyV2 {} {
     set row_8 {0 4 0 0 5 0 0 3 6}
     set row_9 {7 0 3 0 1 8 0 0 0}
 }
+#Solution
 proc eazyV2Sol {} {
     set crow_1 {4 3 5 2 6 9 7 8 1}
     set crow_2 {6 8 2 5 7 1 4 9 3}
@@ -53,6 +57,7 @@ proc eazyV2Sol {} {
 }
 
 #Intermediate-----------------------------------------
+#Board
 proc intermediateV1 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
     set row_1 {0 0 0 6 0 0 8 0 0}
@@ -65,6 +70,7 @@ proc intermediateV1 {} {
     set row_8 {0 0 1 3 2 0 0 5 4}
     set row_9 {0 0 3 0 0 6 0 0 0}
 }
+#Solution
 proc intermediateV1Sol {} {
     set crow_1 {9 3 4 6 5 7 8 1 2} 
     set crow_2 {6 1 7 8 3 2 4 9 5}
@@ -78,6 +84,7 @@ proc intermediateV1Sol {} {
     set correctAns [list $crow_1 $crow_2 $crow_3 $crow_4 $crow_5 $crow_6 $crow_7 $crow_8 $crow_9]
     compareValuesTo $correctAns
 }
+#Board 
 proc intermediateV2 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
     set row_1 {0 9 0 0 8 0 0 0 5}
@@ -90,6 +97,7 @@ proc intermediateV2 {} {
     set row_8 {0 0 9 2 3 0 0 4 0}
     set row_9 {8 0 0 0 9 0 0 2 0}
 }
+#Solution
 proc intermediateV2Sol {} {
     set crow_1 {7 9 2 1 8 3 4 6 5}
     set crow_2 {3 1 4 9 5 6 8 7 2}
@@ -105,6 +113,7 @@ proc intermediateV2Sol {} {
 }
 
 #Hard------------------------------------------------
+#Board
 proc hardV1 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
     set row_1 {0 0 9 0 3 5 0 0 0}
@@ -117,6 +126,7 @@ proc hardV1 {} {
     set row_8 {3 5 0 2 0 0 0 4 0}
     set row_9 {0 0 0 1 6 0 7 0 0}
 }
+#Solution
 proc hardV1Sol {} {
     set crow_1 {6 8 9 7 3 5 1 2 4}
     set crow_2 {2 1 3 8 9 4 5 6 7}
@@ -130,6 +140,7 @@ proc hardV1Sol {} {
     set correctAns [list $crow_1 $crow_2 $crow_3 $crow_4 $crow_5 $crow_6 $crow_7 $crow_8 $crow_9]
     compareValuesTo $correctAns
 }
+#Board
 proc hardV2 {} {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
     set row_1 {0 7 5 0 9 0 0 0 6}
@@ -142,6 +153,7 @@ proc hardV2 {} {
     set row_8 {0 6 0 0 7 0 5 8 0}
     set row_9 {7 0 0 0 1 0 3 9 0}
 }
+#Solution
 proc hardV2Sol {} {
     set crow_1 {1 7 5 2 9 4 8 3 6}
     set crow_2 {6 2 3 1 8 7 9 4 5}
@@ -156,6 +168,9 @@ proc hardV2Sol {} {
     compareValuesTo $correctAns
 }
 
+# compareValuesTo : compares the current value to the correct value and if wrong shades the background of 
+#                   that box red otherwise shades the background of that box green and moves on; 
+#                   Notifies the user if they're right or wrong
 proc compareValuesTo {answers} {
     global g1 g2  g3 g4 g5 g6 g7 g8 g9 
     global row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8 row_9 
@@ -216,6 +231,7 @@ proc stateNormalAll { } {
     }
 }
 
+# stateDisableZeros : finds the entry boxes without zero and takes away the users ability to edit those boxes
 proc stateDisableZeros { } {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
     global gr1c0 gr1c1 gr1c2 gr1c3 gr1c4 gr1c5 gr1c6 gr1c7 gr1c8
@@ -478,6 +494,7 @@ proc stateDisableZeros { } {
     } 
 }
 
+# updateRows : updates the values of the global list to hold the current box values
 proc updateRows {} {
     global r1c0 r1c1 r1c2 r1c3 r1c4 r1c5 r1c6 r1c7 r1c8
     global r2c0 r2c1 r2c2 r2c3 r2c4 r2c5 r2c6 r2c7 r2c8

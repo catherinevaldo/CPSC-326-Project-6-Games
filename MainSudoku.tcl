@@ -7,12 +7,14 @@ source SetupSudoku.tcl
 #Sudoku Information
 source InfoSudoku.tcl
 
+# newGame : resets the boards values for a new game
 proc newGame {} {
     findLevelandVersion
     changeTableValues
     update idletasks
 }
 
+#findLevelandVersion : sets the version and difficulty correctly of the board
 proc findLevelandVersion {} {
     #Adjust Values to be later assigned
     global level
@@ -44,6 +46,7 @@ proc findLevelandVersion {} {
     }
 }
 
+# changeTableValues : changes the values in the table
 proc changeTableValues {} {
     global row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8 row_9
     global r1c0 r1c1 r1c2 r1c3 r1c4 r1c5 r1c6 r1c7 r1c8
@@ -88,6 +91,8 @@ proc changeTableValues {} {
     stateDisableZeros
 }
 
+# check : checks wheather or not the user has answered the answers correctly 
+#         and makes sure all the boxes are filled
 proc check {} {
     global row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8 row_9
     updateRows
@@ -109,6 +114,7 @@ proc check {} {
     checksElements
 }
 
+# validEntries? : checks that the user has enetred integers in all the boxes
 proc validEntries? {row rowNum} {
     for {set col 0} {$col < 9} {incr col} {
         set value [lindex $row $col]
@@ -122,6 +128,7 @@ proc validEntries? {row rowNum} {
     }
 }
 
+# checksElements : checks if the answers in the boxes are correct
 proc checksElements { } {
     global level
     global version
@@ -146,5 +153,5 @@ proc checksElements { } {
     }
 }
 
-#Places Values in the Table
+#Start
 newGame
