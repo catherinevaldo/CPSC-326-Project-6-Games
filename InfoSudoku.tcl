@@ -234,15 +234,6 @@ proc stateNormalAll { } {
 # stateDisableZeros : finds the entry boxes without zero and takes away the users ability to edit those boxes
 proc stateDisableZeros { } {
     global row_9 row_1 row_2 row_3 row_4 row_5 row_6 row_7 row_8
-    global gr1c0 gr1c1 gr1c2 gr1c3 gr1c4 gr1c5 gr1c6 gr1c7 gr1c8
-    global gr2c0 gr2c1 gr2c2 gr2c3 gr2c4 gr2c5 gr2c6 gr2c7 gr2c8
-    global gr3c0 gr3c1 gr3c2 gr3c3 gr3c4 gr3c5 gr3c6 gr3c7 gr3c8
-    global gr4c0 gr4c1 gr4c2 gr4c3 gr4c4 gr4c5 gr4c6 gr4c7 gr4c8
-    global gr5c0 gr5c1 gr5c2 gr5c3 gr5c4 gr5c5 gr5c6 gr5c7 gr5c8 
-    global gr6c0 gr6c1 gr6c2 gr6c3 gr6c4 gr6c5 gr6c6 gr6c7 gr6c8
-    global gr7c0 gr7c1 gr7c2 gr7c3 gr7c4 gr7c5 gr7c6 gr7c7 gr7c8
-    global gr8c0 gr8c1 gr8c2 gr8c3 gr8c4 gr8c5 gr8c6 gr8c7 gr8c8
-    global gr9c0 gr9c1 gr9c2 gr9c3 gr9c4 gr9c5 gr9c6 gr9c7 gr9c8
     global r1c0 r1c1 r1c2 r1c3 r1c4 r1c5 r1c6 r1c7 r1c8
     global r2c0 r2c1 r2c2 r2c3 r2c4 r2c5 r2c6 r2c7 r2c8
     global r3c0 r3c1 r3c2 r3c3 r3c4 r3c5 r3c6 r3c7 r3c8
@@ -252,242 +243,46 @@ proc stateDisableZeros { } {
     global r7c0 r7c1 r7c2 r7c3 r7c4 r7c5 r7c6 r7c7 r7c8
     global r8c0 r8c1 r8c2 r8c3 r8c4 r8c5 r8c6 r8c7 r8c8
     global r9c0 r9c1 r9c2 r9c3 r9c4 r9c5 r9c6 r9c7 r9c8
+    global g1 g2 g3 g4 g5 g6 g7 g8 g9 
     
     for {set row 1} {$row < 10} {incr row} {
         for {set col 0} {$col < 9} {incr col} {
-            if { $row == 1 } {
-                if {[lindex $row_1 $col] != 0} {
-                    switch $col {
-                        0 { $gr1c0 configure -state disabled }
-                        1 { $gr1c1 configure -state disabled }
-                        2 { $gr1c2 configure -state disabled }
-                        3 { $gr1c3 configure -state disabled }
-                        4 { $gr1c4 configure -state disabled }
-                        5 { $gr1c5 configure -state disabled }
-                        6 { $gr1c6 configure -state disabled }
-                        7 { $gr1c7 configure -state disabled }
-                        8 { $gr1c8 configure -state disabled }
-                    }
-                } else {
-                    switch $col {
-                        0 { set r1c0 "" }
-                        1 { set r1c1 "" }
-                        2 { set r1c2 "" }
-                        3 { set r1c3 "" }
-                        4 { set r1c4 "" }
-                        5 { set r1c5 "" }
-                        6 { set r1c6 "" }
-                        7 { set r1c7 "" }
-                        8 { set r1c8 "" }
-                    }
-                }                    
-            } elseif { $row == 2 } {
-                if {[lindex $row_2 $col] != 0} {
-                    switch $col {
-                        0 { $gr2c0 configure -state disabled }
-                        1 { $gr2c1 configure -state disabled }
-                        2 { $gr2c2 configure -state disabled }
-                        3 { $gr2c3 configure -state disabled }
-                        4 { $gr2c4 configure -state disabled }
-                        5 { $gr2c5 configure -state disabled }
-                        6 { $gr2c6 configure -state disabled }
-                        7 { $gr2c7 configure -state disabled }
-                        8 { $gr2c8 configure -state disabled }
-                    }
-                } else {
-                    switch $col {
-                        0 { set r2c0 "" }
-                        1 { set r2c1 "" }
-                        2 { set r2c2 "" }
-                        3 { set r2c3 "" }
-                        4 { set r2c4 "" }
-                        5 { set r2c5 "" }
-                        6 { set r2c6 "" }
-                        7 { set r2c7 "" }
-                        8 { set r2c8 "" }
-                    }
-                }  
-            } elseif { $row == 3 } {
-                if {[lindex $row_3 $col] != 0} {    
-                    switch $col {
-                        0 { $gr3c0 configure -state disabled }
-                        1 { $gr3c1 configure -state disabled }
-                        2 { $gr3c2 configure -state disabled }
-                        3 { $gr3c3 configure -state disabled }
-                        4 { $gr3c4 configure -state disabled }
-                        5 { $gr3c5 configure -state disabled }
-                        6 { $gr3c6 configure -state disabled }
-                        7 { $gr3c7 configure -state disabled }
-                        8 { $gr3c8 configure -state disabled }
-                    }
-                } else {
-                    switch $col {
-                        0 { set r3c0 "" }
-                        1 { set r3c1 "" }
-                        2 { set r3c2 "" }
-                        3 { set r3c3 "" }
-                        4 { set r3c4 "" }
-                        5 { set r3c5 "" }
-                        6 { set r3c6 "" }
-                        7 { set r3c7 "" }
-                        8 { set r3c8 "" }
-                    }
-                }    
-            } elseif { $row == 4 } {
-                if {[lindex $row_4 $col] != 0} {
-                   switch $col {
-                        0 { $gr4c0 configure -state disabled }
-                        1 { $gr4c1 configure -state disabled }
-                        2 { $gr4c2 configure -state disabled }
-                        3 { $gr4c3 configure -state disabled }
-                        4 { $gr4c4 configure -state disabled }
-                        5 { $gr4c5 configure -state disabled }
-                        6 { $gr4c6 configure -state disabled }
-                        7 { $gr4c7 configure -state disabled }
-                        8 { $gr4c8 configure -state disabled }
-                    }
-                } else {
-                    switch $col {
-                        0 { set r4c0 "" }
-                        1 { set r4c1 "" }
-                        2 { set r4c2 "" }
-                        3 { set r4c3 "" }
-                        4 { set r4c4 "" }
-                        5 { set r4c5 "" }
-                        6 { set r4c6 "" }
-                        7 { set r4c7 "" }
-                        8 { set r4c8 "" }
-                    }
+            switch $row {
+                1 { if {[lindex $row_1 $col] != 0} { 
+                        [lindex $g1 $col] configure -state disabled
+                    } else { set r1c$col "" }
                 } 
-            } elseif { $row == 5 } {
-                if {[lindex $row_5 $col] != 0} {
-                    switch $col {
-                        0 { $gr5c0 configure -state disabled } 
-                        1 { $gr5c1 configure -state disabled } 
-                        2 { $gr5c2 configure -state disabled } 
-                        3 { $gr5c3 configure -state disabled } 
-                        4 { $gr5c4 configure -state disabled } 
-                        5 { $gr5c5 configure -state disabled } 
-                        6 { $gr5c6 configure -state disabled } 
-                        7 { $gr5c7 configure -state disabled } 
-                        8 { $gr5c8 configure -state disabled } 
-                    }
-                } else {
-                    switch $col {
-                        0 { set r5c0 "" }
-                        1 { set r5c1 "" }
-                        2 { set r5c2 "" }
-                        3 { set r5c3 "" }
-                        4 { set r5c4 "" }
-                        5 { set r5c5 "" }
-                        6 { set r5c6 "" }
-                        7 { set r5c7 "" }
-                        8 { set r5c8 "" }
-                    }
+                2 { if {[lindex $row_2 $col] != 0} {
+                        [lindex $g2 $col] configure -state disabled
+                    } else { set r2c$col "" } 
+                }   
+                3 { if {[lindex $row_3 $col] != 0} {
+                        [lindex $g3 $col] configure -state disabled
+                    } else { set r3c$col "" }
                 } 
-            } elseif { $row == 6 } {
-                if {[lindex $row_6 $col] != 0} {
-                    switch $col {
-                        0 { $gr6c0 configure -state disabled } 
-                        1 { $gr6c1 configure -state disabled } 
-                        2 { $gr6c2 configure -state disabled } 
-                        3 { $gr6c3 configure -state disabled } 
-                        4 { $gr6c4 configure -state disabled } 
-                        5 { $gr6c5 configure -state disabled } 
-                        6 { $gr6c6 configure -state disabled } 
-                        7 { $gr6c7 configure -state disabled } 
-                        8 { $gr6c8 configure -state disabled } 
-                    }
-                } else {
-                    switch $col {
-                        0 { set r6c0 "" }
-                        1 { set r6c1 "" }
-                        2 { set r6c2 "" }
-                        3 { set r6c3 "" }
-                        4 { set r6c4 "" }
-                        5 { set r6c5 "" }
-                        6 { set r6c6 "" }
-                        7 { set r6c7 "" }
-                        8 { set r6c8 "" }
-                    }
+                4 { if {[lindex $row_4 $col] != 0} {
+                        [lindex $g4 $col] configure -state disabled
+                    } else { set r4c$col "" } 
                 } 
-            } elseif { $row == 7 } {
-                if {[lindex $row_7 $col] != 0} {
-                    switch $col {
-                        0 { $gr7c0 configure -state disabled } 
-                        1 { $gr7c1 configure -state disabled } 
-                        2 { $gr7c2 configure -state disabled } 
-                        3 { $gr7c3 configure -state disabled } 
-                        4 { $gr7c4 configure -state disabled } 
-                        5 { $gr7c5 configure -state disabled } 
-                        6 { $gr7c6 configure -state disabled } 
-                        7 { $gr7c7 configure -state disabled } 
-                        8 { $gr7c8 configure -state disabled } 
-                    }
-                } else {
-                    switch $col {
-                        0 { set r7c0 "" }
-                        1 { set r7c1 "" }
-                        2 { set r7c2 "" }
-                        3 { set r7c3 "" }
-                        4 { set r7c4 "" }
-                        5 { set r7c5 "" }
-                        6 { set r7c6 "" }
-                        7 { set r7c7 "" }
-                        8 { set r7c8 "" }
-                    }
+                5 { if {[lindex $row_5 $col] != 0} {
+                        [lindex $g5 $col] configure -state disabled
+                    } else { set r5c$col "" }
                 } 
-            } elseif { $row == 8 } {
-                if {[lindex $row_8 $col] != 0} {
-                    switch $col {
-                        0 { $gr8c0 configure -state disabled } 
-                        1 { $gr8c1 configure -state disabled } 
-                        2 { $gr8c2 configure -state disabled } 
-                        3 { $gr8c3 configure -state disabled } 
-                        4 { $gr8c4 configure -state disabled } 
-                        5 { $gr8c5 configure -state disabled } 
-                        6 { $gr8c6 configure -state disabled } 
-                        7 { $gr8c7 configure -state disabled } 
-                        8 { $gr8c8 configure -state disabled } 
-                    }
-                } else {
-                    switch $col {
-                        0 { set r8c0 "" }
-                        1 { set r8c1 "" }
-                        2 { set r8c2 "" }
-                        3 { set r8c3 "" }
-                        4 { set r8c4 "" }
-                        5 { set r8c5 "" }
-                        6 { set r8c6 "" }
-                        7 { set r8c7 "" }
-                        8 { set r8c8 "" }
-                    }
+                6 { if {[lindex $row_6 $col] != 0} {
+                        [lindex $g6 $col] configure -state disabled
+                    } else { set r6c$col "" } 
                 } 
-            } else {
-                if {[lindex $row_9 $col] != 0} {
-                    switch $col {
-                        0 { $gr9c0 configure -state disabled }
-                        1 { $gr9c1 configure -state disabled }
-                        2 { $gr9c2 configure -state disabled }
-                        3 { $gr9c3 configure -state disabled }
-                        4 { $gr9c4 configure -state disabled }
-                        5 { $gr9c5 configure -state disabled }
-                        6 { $gr9c6 configure -state disabled }
-                        7 { $gr9c7 configure -state disabled }
-                        8 { $gr9c8 configure -state disabled }
-                    }
-                } else {
-                    switch $col {
-                        0 { set r9c0 "" }
-                        1 { set r9c1 "" }
-                        2 { set r9c2 "" }
-                        3 { set r9c3 "" }
-                        4 { set r9c4 "" }
-                        5 { set r9c5 "" }
-                        6 { set r9c6 "" }
-                        7 { set r9c7 "" }
-                        8 { set r9c8 "" }
-                    }
+                7 { if {[lindex $row_7 $col] != 0} {
+                        [lindex $g7 $col] configure -state disabled
+                    } else { set r7c$col "" }
+                } 
+                8 { if {[lindex $row_8 $col] != 0} {
+                        [lindex $g8 $col] configure -state disabled
+                    } else { set r8c$col "" } 
+                }
+                9 { if {[lindex $row_9 $col] != 0} {
+                        [lindex $g9 $col] configure -state disabled
+                    } else { set r9c$col "" }
                 } 
             }
         }
