@@ -12,24 +12,33 @@ proc main {} {
   set randNum [expr {int(rand()*3)}]
   grid [ label .madLibs.instructions -text "Enter appropriate values of your choice into \
     the corresponding boxes" ] -columnspan 2
-  #grid [ button .madLibs.enter -text "Enter" 
-    #-command "showStory $randNum $a1.a1 $a2 $a3 $a4 $a5 $a6 $a7 $a8 $a9 $a10"] 
-    #-column 0 -row 12 -sticky w
+
+  global a1;
+  global a2;
+  global a3;
+  global a4;
+  global a5;
+  global a6;
+  global a7;
+  global a8;
+  global a9;
+  global a10;
+
 
   # set all entries
-  set ans1 [ entry .madLibs.a1 -textvariable a1 -width 20 -state normal ] 
-  set ans2 [ entry .madLibs.a2 -textvariable a2 -width 20 -state normal ] 
-  set ans3 [ entry .madLibs.a3 -textvariable a3 -width 20 -state normal ] 
-  set ans4 [ entry .madLibs.a4 -textvariable a4 -width 20 -state normal ] 
-  set ans5 [ entry .madLibs.a5 -textvariable a5 -width 20 -state normal ] 
-  set ans6 [ entry .madLibs.a6 -textvariable a6 -width 20 -state normal ] 
-  set ans7 [ entry .madLibs.a7 -textvariable a7 -width 20 -state normal ] 
-  set ans8 [ entry .madLibs.a8 -textvariable a8 -width 20 -state normal ] 
-  set ans9 [ entry .madLibs.a9 -textvariable a9 -width 20 -state normal ] 
-  set ans10 [ entry .madLibs.a10 -textvariable a10 -width 20 -state normal ] 
+  set ans1 [ entry .madLibs.an1 -textvariable a1 -width 20 -state normal ] 
+  set ans2 [ entry .madLibs.an2 -textvariable a2 -width 20 -state normal ] 
+  set ans3 [ entry .madLibs.an3 -textvariable a3 -width 20 -state normal ] 
+  set ans4 [ entry .madLibs.an4 -textvariable a4 -width 20 -state normal ] 
+  set ans5 [ entry .madLibs.an5 -textvariable a5 -width 20 -state normal ] 
+  set ans6 [ entry .madLibs.an6 -textvariable a6 -width 20 -state normal ] 
+  set ans7 [ entry .madLibs.an7 -textvariable a7 -width 20 -state normal ] 
+  set ans8 [ entry .madLibs.an8 -textvariable a8 -width 20 -state normal ] 
+  set ans9 [ entry .madLibs.an9 -textvariable a9 -width 20 -state normal ] 
+  set ans10 [ entry .madLibs.an10 -textvariable a10 -width 20 -state normal ] 
   
   # set placement for entries
-  grid $ans1 -column 1 -row 1
+  grid $ans1 -column 1 -row 1 
   grid $ans2 -column 1 -row 2
   grid $ans3 -column 1 -row 3
   grid $ans4 -column 1 -row 4
@@ -40,8 +49,9 @@ proc main {} {
   grid $ans9 -column 1 -row 9
   grid $ans10 -column 1 -row 10
 
-  grid [ button .madLibs.enter -text "Enter" -command "showStory $randNum $ans1.a1 \
-    $ans2.a2 $ans3.a3 $ans4.a4 $ans5.a5 $ans6.a6 $ans7.a7 $ans8.a8 $ans9.a9 $ans10.a10"] \
+  # set up the button and event handler
+  grid [ button .madLibs.enter -text $ -command "showStory $randNum $a1 \
+    $a2 $a3 $a4 $a5 $a6 $a7 $a8 $a9 $a10"] \
     -column 0 -row 12 -sticky w
  
   # each story has different prompts
@@ -83,7 +93,7 @@ proc main {} {
   }
 }
 
-proc showStory {num, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10} {
+proc showStory {num a1 a2 a3 a4 a5 a6 a7 a8 a9 a10} {
   #grid [ label .madLibs.story -text $num ] 
   if {$num == 0} {
     set s1 "Today a "
@@ -100,7 +110,8 @@ proc showStory {num, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10} {
       won't be able to "
     set s10 " next to a "
     set s11 "!"
-    puts "$s1 $a1 $s2 $a2 $s3 $a3 $s4 $a4 $s5 $a5 $s6 $a6 $s7 $a7 $s8 $a8 $s9 $a9 $s10 $a10"
+    grid [ label .madLibs.story -text "$s1 $a1 $s2 $a2 $s3 $a3 $s4 $a4 $s5 $a5 $s6 $a6 \
+      $s7 $a7 $s8 $a8 $s9 $a9 $s10 $a10" ] -columnspan 2
   }
 }
 
